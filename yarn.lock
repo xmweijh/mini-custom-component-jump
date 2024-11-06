@@ -301,7 +301,7 @@
   dependencies:
     undici-types "~6.19.2"
 
-"@types/vscode@^1.95.0":
+"@types/vscode@^1.33.0":
   version "1.95.0"
   resolved "http://r.npm.sankuai.com/@types/vscode/download/@types/vscode-1.95.0.tgz#484aee82c69fa2d73e29d4bf2a91191e570dbc70"
   integrity sha1-SErugsafotc+KdS/KpEZHlcNvHA=
