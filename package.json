@@ -4,21 +4,16 @@
   "description": "小程序自定义组件缩写路径跳转支持",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.95.0"
+    "vscode": "^1.33.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": ["onLanguage:wxml"],
+  "activationEvents": [
+    "onLanguage:wxml"
+  ],
   "main": "./dist/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "mini-custom-component-jump.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
+  "contributes": {},
   "scripts": {
     "vscode:prepublish": "yarn run package",
     "compile": "yarn run check-types && yarn run lint && node esbuild.js",
