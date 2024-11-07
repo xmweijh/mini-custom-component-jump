@@ -44,7 +44,9 @@ function loadAliasMap(): Record<string, string> {
 
   if (configPath) {
     try {
-      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      // const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      // 暂时使用宽松的 JSON 解析器
+      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8').replace(/,(\s*[\]}])/g, '$1'));
       const paths = config.compilerOptions?.paths || {};
 
       for (const alias in paths) {
@@ -95,7 +97,6 @@ export function activate(context: vscode.ExtensionContext) {
           }
 
           const aliasMap = loadAliasMap();
-
           let config;
           try {
             config = JSON.parse(fs.readFileSync(jsonFile, 'utf-8'));
@@ -125,7 +126,6 @@ export function activate(context: vscode.ExtensionContext) {
               compPath = resolveAliasPath(compPath, aliasMap);
             }
           }
-
           if (compPath) {
             let componentPath = path.join(rootPath, `${compPath}.ts`);
             if (!fs.existsSync(componentPath)) {
