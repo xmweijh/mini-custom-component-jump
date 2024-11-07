@@ -3,10 +3,11 @@
   "displayName": "小程序自定义组件跳转",
   "description": "小程序自定义组件缩写路径跳转支持",
   "publisher": "xmweijh",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.33.0"
   },
+  "icon": "icon.png",
   "categories": [
     "Other"
   ],
