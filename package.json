@@ -1,9 +1,9 @@
 {
   "name": "mini-custom-component-jump",
   "displayName": "小程序自定义组件跳转",
-  "description": "小程序自定义组件缩写路径跳转支持",
+  "description": "小程序自定义组件别名路径跳转支持",
   "publisher": "xmweijh",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.33.0"
   },

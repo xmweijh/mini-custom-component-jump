@@ -12,7 +12,7 @@ const wxTags = [
   'official-account', 'open-data', 'web-view',
 ];
 
-const appFile = 'jsconfig.json';
+const appFile = 'tsconfig.json';
 let rootPath = '';
 
 function lastLevelDir(filePath: string): string {
@@ -23,7 +23,7 @@ function findRootPath(filePath: string): string {
   const dir = lastLevelDir(filePath);
   const files = fs.readdirSync(dir);
 
-  if (files.includes(appFile)) {
+  if (files.includes('tsconfig.json') || files.includes('jsconfig.json')) {
     return dir;
   } else {
     return findRootPath(dir);
@@ -31,20 +31,28 @@ function findRootPath(filePath: string): string {
 }
 
 function loadAliasMap(): Record<string, string> {
+  const tsconfigPath = path.join(rootPath, 'tsconfig.json');
   const jsconfigPath = path.join(rootPath, 'jsconfig.json');
   const aliasMap: Record<string, string> = {};
 
-  if (fs.existsSync(jsconfigPath)) {
+  let configPath = '';
+  if (fs.existsSync(tsconfigPath)) {
+    configPath = tsconfigPath;
+  } else if (fs.existsSync(jsconfigPath)) {
+    configPath = jsconfigPath;
+  }
+
+  if (configPath) {
     try {
-      const jsconfig = JSON.parse(fs.readFileSync(jsconfigPath, 'utf-8'));
-      const paths = jsconfig.compilerOptions?.paths || {};
+      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      const paths = config.compilerOptions?.paths || {};
 
       for (const alias in paths) {
         const actualPath = paths[alias][0].replace('/*', '');
         aliasMap[alias.replace('/*', '')] = actualPath;
       }
     } catch (error) {
-      console.error('Error parsing jsconfig.json:', error);
+      console.error(`Error parsing ${configPath}:`, error);
     }
   }
 
@@ -86,7 +94,7 @@ export function activate(context: vscode.ExtensionContext) {
             rootPath = findRootPath(filePath);
           }
 
-          let aliasMap = loadAliasMap();
+          const aliasMap = loadAliasMap();
 
           let config;
           try {
@@ -119,11 +127,16 @@ export function activate(context: vscode.ExtensionContext) {
           }
 
           if (compPath) {
-            const componentPath = path.join(rootPath, `${compPath}.ts`);
-            return new vscode.Location(
-              vscode.Uri.file(componentPath),
-              new vscode.Position(0, 0),
-            );
+            let componentPath = path.join(rootPath, `${compPath}.ts`);
+            if (!fs.existsSync(componentPath)) {
+              componentPath = path.join(rootPath, `${compPath}.js`);
+            }
+            if (fs.existsSync(componentPath)) {
+              return new vscode.Location(
+                vscode.Uri.file(componentPath),
+                new vscode.Position(0, 0),
+              );
+            }
           }
         },
       },
