@@ -75,8 +75,6 @@ function getConfig() {
 function tryOpenFile(basePath: string, fileTypes: string[]): string | null {
   for (const type of fileTypes) {
     const filePath = `${basePath}.${type}`;
-    console.log('*************')
-    console.log(filePath);
     if (fs.existsSync(filePath)) {
       return filePath;
     }
@@ -242,8 +240,6 @@ function handleAliasJump(filePath: string, importPath: string, sourceFileType: s
     const fullPath = path.join(rootPath, resolvedPath);
 
     if (fs.existsSync(fullPath)) {
-      console.log('****************')
-      console.log(fullPath);
       return new vscode.Location(
         vscode.Uri.file(fullPath),
         new vscode.Position(0, 0),
