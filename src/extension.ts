@@ -207,11 +207,13 @@ function handleComponentJump(filePath: string, tag: string) {
 
   if (compPath) {
     const config = getConfig();
-    let fileTypes = config.get('aliasJumpFileTypes') as string[];
-    if (!fileTypes || fileTypes.length === 0) {
+    let fileType = config.get('defaultOpenFileType') as string;
+    let fileTypes: string[] = [];
+    if (!fileType) {
       fileTypes = [path.extname(filePath).slice(1)];
+    } else {
+      fileTypes = [fileType];
     }
-
     const componentPath = tryOpenFile(path.join(rootPath, compPath), fileTypes);
     
     if (componentPath) {

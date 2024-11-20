@@ -3,7 +3,7 @@
   "displayName": "小程序自定义组件跳转",
   "description": "小程序自定义组件别名路径跳转支持",
   "publisher": "xmweijh",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -24,7 +24,7 @@
           "type": "string",
           "default": "ts",
           "enum": ["ts", "js", "wxml", "scss", "json"],
-          "description": "默认打开的文件类型"
+          "description": "自定义组件默认打开的文件类型"
         },
         "miniCustomComponentJump.aliasJumpFileTypes": {
           "type": "array",
