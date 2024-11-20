@@ -3,7 +3,7 @@
   "displayName": "小程序自定义组件跳转",
   "description": "小程序自定义组件别名路径跳转支持",
   "publisher": "xmweijh",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -12,10 +12,51 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:wxml"
+    "onLanguage:wxml",
+    "onLanguage:scss"
   ],
   "main": "./dist/extension.js",
-  "contributes": {},
+  "contributes": {
+    "configuration": {
+      "title": "WX Mini Program Helper",
+      "properties": {
+        "miniCustomComponentJump.defaultOpenFileType": {
+          "type": "string",
+          "default": "ts",
+          "enum": ["ts", "js", "wxml", "scss", "json"],
+          "description": "默认打开的文件类型"
+        },
+        "miniCustomComponentJump.aliasJumpFileTypes": {
+          "type": "array",
+          "default": ["ts", "js"],
+          "items": {
+            "type": "string",
+            "enum": ["ts", "js", "wxml", "scss", "json"]
+          },
+          "description": "别名跳转时尝试打开的文件类型顺序"
+        },
+        "miniCustomComponentJump.useComponentNameAsFileName": {
+          "type": "boolean",
+          "default": false,
+          "description": "使用组件名作为文件名，而不是使用 index"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "miniCustomComponentJump.createComponent",
+        "title": "创建微信小程序组件"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "miniCustomComponentJump.createComponent",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
   "scripts": {
     "vscode:prepublish": "yarn run package",
     "compile": "yarn run check-types && yarn run lint && node esbuild.js",
