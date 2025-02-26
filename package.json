@@ -1,9 +1,9 @@
 {
   "name": "mini-custom-component-jump",
-  "displayName": "小程序自定义组件跳转",
-  "description": "小程序自定义组件别名路径跳转支持",
+  "displayName": "小程序宝具库",
+  "description": "微信小程序开发增强工具：自定义组件跳转、SCSS变量管理、组件创建等多功能集成",
   "publisher": "xmweijh",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "engines": {
     "vscode": "^1.33.0"
   },
@@ -39,6 +39,11 @@
           "type": "boolean",
           "default": false,
           "description": "使用组件名作为文件名，而不是使用 index"
+        },
+        "miniCustomComponentJump.designTokenPath": {
+          "type": "string",
+          "default": "src/assets/style/design-token.scss",
+          "description": "Design Token 文件路径，相对于项目根目录"
         }
       }
     },
@@ -46,6 +51,10 @@
       {
         "command": "miniCustomComponentJump.createComponent",
         "title": "创建微信小程序组件"
+      },
+      {
+        "command": "miniCustomComponentJump.convertToScssVariable",
+        "title": "转换为SCSS变量"
       }
     ],
     "menus": {
@@ -54,8 +63,23 @@
           "command": "miniCustomComponentJump.createComponent",
           "group": "navigation"
         }
+      ],
+      "editor/context": [
+        {
+          "command": "miniCustomComponentJump.convertToScssVariable",
+          "when": "editorLangId == scss",
+          "group": "1_modification"
+        }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "miniCustomComponentJump.convertToScssVariable",
+        "key": "ctrl+alt+v",
+        "mac": "cmd+alt+v",
+        "when": "editorLangId == scss"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
@@ -83,6 +107,9 @@
     "typescript": "^5.6.3",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1"
+  },
+  "dependencies": {
+    "sass": "^1.71.0"
   },
   "repository": {
     "type": "git",
