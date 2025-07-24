@@ -1,7 +1,7 @@
 {
   "name": "mini-custom-component-jump",
   "displayName": "小程序宝具库",
-  "description": "微信小程序开发增强工具：自定义组件跳转、SCSS变量管理、组件创建等多功能集成",
+  "description": "微信小程序开发增强工具：自定义组件跳转、SCSS变量管理、组件创建、埋点检测等多功能集成",
   "publisher": "xmweijh",
   "version": "0.0.8",
   "engines": {
@@ -13,7 +13,9 @@
   ],
   "activationEvents": [
     "onLanguage:wxml",
-    "onLanguage:scss"
+    "onLanguage:scss",
+    "onLanguage:typescript",
+    "onLanguage:javascript"
   ],
   "main": "./dist/extension.js",
   "contributes": {
